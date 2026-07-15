@@ -35,11 +35,12 @@ public class InvoiceController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'VENDOR')")
     public ResponseEntity<InvoiceResponse> createInvoice(@Valid @RequestBody InvoiceRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(invoiceService.createInvoice(request));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(invoiceService.createInvoice(request));
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'FINANCE_EXECUTIVE', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'FINANCE_EXECUTIVE', 'MANAGER', 'VENDOR')")
     public ResponseEntity<List<InvoiceResponse>> getInvoices() {
         return ResponseEntity.ok(invoiceService.getInvoices());
     }
