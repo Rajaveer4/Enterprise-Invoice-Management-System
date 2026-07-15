@@ -28,17 +28,18 @@ public class VendorController {
     @PostMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'FINANCE_EXECUTIVE')")
     public ResponseEntity<VendorResponse> createVendor(@Valid @RequestBody VendorRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(vendorService.createVendor(request));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(vendorService.createVendor(request));
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'FINANCE_EXECUTIVE', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'FINANCE_EXECUTIVE', 'MANAGER', 'VENDOR')")
     public ResponseEntity<List<VendorResponse>> getVendors() {
         return ResponseEntity.ok(vendorService.getVendors());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN', 'FINANCE_EXECUTIVE', 'MANAGER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'FINANCE_EXECUTIVE', 'MANAGER', 'VENDOR')")
     public ResponseEntity<VendorResponse> getVendor(@PathVariable Long id) {
         return ResponseEntity.ok(vendorService.getVendor(id));
     }
